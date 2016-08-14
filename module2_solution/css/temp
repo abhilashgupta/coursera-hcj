@@ -1,0 +1,14 @@
+import pfeAPI
+ctx = pfeAPI.get_ctx('128.0.0.16', 50051, 10)
+pfeAPI.ifd_create(ctx, 200, 30, "xe-0/0/30", "00:01:02:03:04:05", 1400)
+pfeAPI.ifl_create(ctx, 200, 200, 4099)
+pfeAPI.iff_create(ctx, 200, "ip")
+pfeAPI.ifd_create (ctx, 100, 31, "xe-0/0/31","00:01:02:03:04:05", 1400)
+pfeAPI.ifl_create(ctx, 100, 100, 4098)
+pfeAPI.iff_create(ctx, 100, "ip")
+pfeAPI.nhdb_add_unicast(ctx, 1325, 200, "aa:bb:cc:cc:bb:aa")
+pfeAPI.rt_table_add(ctx, "ip", 0, "inet4")
+pfeAPI.rt_prefix_add(ctx, "ip", "13.13.13.1/32", 1325, 0)
+
+rtt = pfeAPI.get_rt_table(ctx, 0, 'ip')
+rt_entry = pfeAPI.get_rt_entry(ctx, "ip", 0, "13.13.13.1/32")
